@@ -10,7 +10,8 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Vehicles from "./component/vehicles"; // Importar el componente Vehicles aquí
-
+import Planets from "./component/planets";
+import People from "./component/people";
 const Layout = () => {
 	const basename = process.env.BASENAME || "";
 
@@ -24,6 +25,8 @@ const Layout = () => {
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="/vehicles" element={<Vehicles />} />
+						<Route path="/planets" element={<Planets />} />
+						<Route path="/people" element={<People />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
 					</Routes>
 					<Footer />
