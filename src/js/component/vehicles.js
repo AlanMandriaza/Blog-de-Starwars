@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaHeart } from "react-icons/fa";
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -35,26 +36,74 @@ const Vehicles = () => {
   return (
     <div>
       <h1>Vehicles</h1>
-      <ul>
-        {vehicles.map((vehicle) => (
-          <li key={vehicle.uid}>
-            <h2>{vehicle.name}</h2>
-            <p>Model: {vehicle.model}</p>
-            <p>Manufacturer: {vehicle.manufacturer}</p>
-            {vehicle.properties && (
-              <ul>
-                {Object.entries(vehicle.properties).map(([key, value]) => (
-                  <li key={key}>
-                    <strong>{key}:</strong> {value}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
+
+      <div className="container py-5">
+        <div className="d-flex flex-nowrap overflow-auto">
+          {vehicles.map((vehicle) => (
+            <div className="col-12" key={vehicle.uid}>
+              <div className="card mb-5" style={{ width: "800px" }}>
+                <div className="row g-0">
+                  <div className="col-md-6">
+                    <img
+                      src="https://static.wikia.nocookie.net/starwars/images/e/e1/Lukes_T-16_Skyhopper_TT.png"
+                      className="img-fluid rounded-start"
+                      alt="..."
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <div className="card-body">
+                      <h5 className="card-title">{vehicle.name}</h5>
+                      <p className="card-text">Model: {vehicle.model}</p>
+                      <p className="card-text">
+                        Manufacturer: {vehicle.manufacturer}
+                      </p>
+                      {vehicle.properties && (
+                        <>
+                          <p className="card-text">
+                            Cargo Capacity: {vehicle.properties.cargo_capacity}
+                          </p>
+                          <p className="card-text">
+                            Consumables: {vehicle.properties.consumables}
+                          </p>
+                          <p className="card-text">
+                            Cost in Credits: {vehicle.properties.cost_in_credits}
+                          </p>
+                          <p className="card-text">
+                            Crew: {vehicle.properties.crew}
+                          </p>
+                          <p className="card-text">
+                            Length: {vehicle.properties.length}
+                          </p>
+                          <p className="card-text">
+                            Max Atmosphering Speed:{" "}
+                            {vehicle.properties.max_atmosphering_speed}
+                          </p>
+                          <p className="card-text">
+                            Model: {vehicle.properties.model}
+                          </p>
+                          <p className="card-text">
+                            Passengers: {vehicle.properties.passengers}
+                          </p>
+                          <p className="card-text">
+                            Vehicle Class: {vehicle.properties.vehicle_class}
+                          </p>
+                          <button type="button" class="btn btn-primary">Learn More</button>
+                          <FaHeart/>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 };
 
 export default Vehicles;
+

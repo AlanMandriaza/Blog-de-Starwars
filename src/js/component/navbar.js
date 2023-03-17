@@ -3,11 +3,8 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          Navbar
-        </a>
         <button
           className="navbar-toggler"
           type="button"
@@ -20,7 +17,7 @@ export const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <Link to="/people" className="nav-link">
                 People
@@ -37,6 +34,9 @@ export const Navbar = () => {
               </Link>
             </li>
           </ul>
+          <a className="navbar-brand me-auto" href="#">
+            Favorites
+          </a>
         </div>
       </div>
     </nav>
