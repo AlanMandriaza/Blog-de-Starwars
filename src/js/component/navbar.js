@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
+  const [favorites, setFavorites] = useState([]);
+
+  const handleAddToFavorites = (item) => {
+    setFavorites([...favorites, item]);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -33,9 +39,18 @@ export const Navbar = () => {
                 Planets
               </Link>
             </li>
+            <li className="nav-item">
+              <button
+                type="button"
+                className="btn btn-link nav-link"
+                onClick={() => handleAddToFavorites("item")}
+              >
+                Add to Favorites
+              </button>
+            </li>
           </ul>
           <a className="navbar-brand me-auto" href="#">
-            Favorites
+            Favorites ({favorites.length})
           </a>
         </div>
       </div>
