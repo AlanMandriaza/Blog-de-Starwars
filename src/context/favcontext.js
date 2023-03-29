@@ -1,13 +1,12 @@
-// favcontext.js
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const GlobalFavContext = createContext();
 
 const actions = {
-  addToFavorites: (item, setFavorites) => {
+  addToFav: (setFavorites) => (item) => {
     setFavorites((prevState) => [...prevState, item]);
   },
-  removeFavorite: (item, setFavorites) => {
+  removeFav: (setFavorites) => (item) => {
     setFavorites((prevState) => prevState.filter((favItem) => favItem.name !== item.name));
   },
 };
@@ -15,13 +14,14 @@ const actions = {
 export const GlobalFavProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
 
-  const contextActions = {
-    addToFavorites: (item) => actions.addToFavorites(item, setFavorites),
-    removeFavorite: (item) => actions.removeFavorite(item, setFavorites),
+  const contextValue = {
+    fav: favorites,
+    addToFav: actions.addToFav(setFavorites),
+    removeFav: actions.removeFav(setFavorites),
   };
 
   return (
-    <GlobalFavContext.Provider value={{ fav: favorites, ...contextActions }}>
+    <GlobalFavContext.Provider value={contextValue}>
       {children}
     </GlobalFavContext.Provider>
   );

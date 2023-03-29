@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaHeart } from "react-icons/fa";
+import { GlobalFavContext } from "../../context/favcontext";
+
+
 
 const Vehicles = () => {
+
+  const { fav } = useContext(GlobalFavContext);
+
+  // Luego, en tu JSX, puedes mostrar la cantidad de elementos favoritos así:
+  <p className="navbar-text">Favorites: {fav.length}</p>
+
+
   const [vehicles, setVehicles] = useState([]);
 
   useEffect(fetchVehiclesData, []);
@@ -10,18 +20,14 @@ const Vehicles = () => {
     fetch("https://www.swapi.tech/api/vehicles")
       .then((response) => response.json())
       .then((data) => {
-        // Obtener los datos básicos de cada vehículo
         const basicVehicleData = data.results;
 
-        // Para cada vehículo, hacer otra llamada Fetch para obtener las propiedades completas
         const fetchVehicleProperties = basicVehicleData.map((vehicle) =>
           fetch(vehicle.url).then((response) => response.json())
         );
 
-        // Esperar a que se completen todas las llamadas Fetch para las propiedades
         Promise.all(fetchVehicleProperties)
           .then((vehicleProperties) => {
-            // Actualizar el estado con los datos completos de cada vehículo
             const vehiclesData = basicVehicleData.map((vehicle, index) => ({
               ...vehicle,
               properties: vehicleProperties[index].result.properties,
@@ -87,8 +93,16 @@ const Vehicles = () => {
                           <p className="card-text">
                             Vehicle Class: {vehicle.properties.vehicle_class}
                           </p>
-                          <button type="button" class="btn btn-primary">Learn More</button>
-                          <FaHeart/>
+                          <button type="button" className="btn btn-primary">Learn More</button>
+                          <button
+                            type="button"
+                            className="btn btn-link nav-link"
+                            onClick={() => addToFavorites({ uid: vehicle.uid, name: vehicle.name })}
+                          >
+                            <FaHeart />
+                          </button>
+                          <button onClick={() => addToFav(item)}>Add to favorites</button>
+
                         </>
                       )}
                     </div>
@@ -96,14 +110,11 @@ const Vehicles = () => {
                 </div>
               </div>
             </div>
-
           ))}
         </div>
       </div>
-
     </div>
   );
 };
 
 export default Vehicles;
-

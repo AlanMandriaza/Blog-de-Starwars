@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { GlobalFavContext } from "../../context/favcontext";
+
+
 
 export const Navbar = () => {
+  const { fav, removeFav } = useContext(GlobalFavContext);
   const [favorites, setFavorites] = useState([]);
-
-  const handleAddToFavorites = (item) => {
-    setFavorites([...favorites, item]);
-  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,19 +39,34 @@ export const Navbar = () => {
                 Planets
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item dropdown">
               <button
+                className="nav-link dropdown-toggle"
                 type="button"
-                className="btn btn-link nav-link"
-                onClick={() => handleAddToFavorites("item")}
+                id="btnGroupDrop1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                Add to Favorites
+                Favorites ({fav.length})
               </button>
+              <ul className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                {fav.length > 0 &&
+                  fav.map((prod, i) => {
+                    return (
+                      <li key={i}>
+                        <a className="dropdown-item" href="#">
+                          {prod.name}
+                          <i
+                            className="far fa fa-trash mx-2"
+                            onClick={() => removeFav(prod.name)}
+                          ></i>
+                        </a>
+                      </li>
+                    );
+                  })}
+              </ul>
             </li>
           </ul>
-          <a className="navbar-brand me-auto" href="#">
-            Favorites ({favorites.length})
-          </a>
         </div>
       </div>
     </nav>

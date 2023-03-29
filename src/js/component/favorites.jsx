@@ -1,51 +1,40 @@
-import React, { useContext } from 'react'
-import { GlobalCartContext } from '../context/CartContext';
+import React, { useContext } from "react";
+import React from "react";
+import React from "react";
 
-const Cart = () => {
+import { GlobalFavContext } from "../context/favcontext";
 
-    const { cart } = useContext(GlobalCartContext);
+const Favorites = () => {
+  const { fav } = useContext(GlobalFavContext);
 
-    return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-12">
-                    <h3 className="text-primary">Shopping Cart</h3>
-                    <table className="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                cart.length > 0 &&
-                                cart.map((prod, i) => {
-                                    return (
-                                        <tr key={i}>
-                                            <td>{i + 1}</td>
-                                            <td>{prod.name}</td>
-                                            <td>${prod.price}</td>
-                                            <td>{prod.quantity}</td>
-                                            <td>${prod.price * prod.quantity}</td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colSpan={4} className="text-end bg-secondary text-white">Total:</td>
-                                <td className='fw-bold bg-primary text-white'>${cart.reduce((total, prod) => total + (prod.price * prod.quantity), 0)}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-md-12">
+          <h3 className="text-primary">Favorites</h3>
+          <table className="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fav.length > 0 &&
+                fav.map((favorite, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{i + 1}</td>
+                      <td>{favorite.name}</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default Cart
+export default Favorites;
