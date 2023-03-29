@@ -6,7 +6,8 @@ import { GlobalFavContext } from "../../context/favcontext";
 
 const Vehicles = () => {
 
-  const { fav } = useContext(GlobalFavContext);
+  
+  const { fav, addToFavorites } = useContext(GlobalFavContext);
 
   // Luego, en tu JSX, puedes mostrar la cantidad de elementos favoritos así:
   <p className="navbar-text">Favorites: {fav.length}</p>
@@ -94,14 +95,9 @@ const Vehicles = () => {
                             Vehicle Class: {vehicle.properties.vehicle_class}
                           </p>
                           <button type="button" className="btn btn-primary">Learn More</button>
-                          <button
-                            type="button"
-                            className="btn btn-link nav-link"
-                            onClick={() => addToFavorites({ uid: vehicle.uid, name: vehicle.name })}
-                          >
-                            <FaHeart />
-                          </button>
-                          <button onClick={() => addToFav(item)}>Add to favorites</button>
+                          <button onClick={() => addToFavorites({ uid: vehicle.uid, name: vehicle.name })}>Add to favorites</button>
+
+                          
 
                         </>
                       )}

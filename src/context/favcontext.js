@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 export const GlobalFavContext = createContext();
 
 const actions = {
-  addToFav: (setFavorites) => (item) => {
+  addToFavorites: (setFavorites) => (item) => {
     setFavorites((prevState) => [...prevState, item]);
   },
   removeFav: (setFavorites) => (item) => {
@@ -16,7 +16,7 @@ export const GlobalFavProvider = ({ children }) => {
 
   const contextValue = {
     fav: favorites,
-    addToFav: actions.addToFav(setFavorites),
+    addToFavorites: actions.addToFavorites(setFavorites),
     removeFav: actions.removeFav(setFavorites),
   };
 
