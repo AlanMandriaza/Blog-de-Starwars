@@ -7,7 +7,7 @@ const actions = {
     setFavorites((prevState) => [...prevState, item]);
   },
   removeFav: (setFavorites) => (item) => {
-    setFavorites((prevState) => prevState.filter((favItem) => favItem.name !== item.name));
+    setFavorites((prevState) => prevState.filter((favItem) => favItem.uid !== item.uid));
   },
 };
 

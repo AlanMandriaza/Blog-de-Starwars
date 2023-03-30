@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaHeart } from "react-icons/fa";
+import { GlobalFavContext } from "../../context/favcontext";
 
 function People() {
   const [people, setPeople] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const { addToFavorites } = useContext(GlobalFavContext);
 
   function fetchPeopleData() {
     fetch("https://www.swapi.tech/api/people")
@@ -42,12 +44,12 @@ function People() {
 
   return (
     <div>
-      <h1>People</h1>
-
+      
       <div className="container py-5">
+      <h1>People</h1>
         <div className="d-flex flex-nowrap overflow-auto">
           {people.map((person) => (
-            <div className="col-12" key={person.uid}>
+            <div className="col-9" key={person.uid}>
               <div className="card mb-5" style={{ width: "800px" }}>
                 <div className="row g-0">
                   <div className="col-md-6">
@@ -55,15 +57,18 @@ function People() {
                       src="https://dojiw2m9tvv09.cloudfront.net/10102/product/c3po-39845.jpg"
                       className="img-fluid rounded-start"
                       alt="..."
+                      style={{ height: "383px" }}
                     />
                   </div>
                   <div className="col-md-6">
                     <div className="card-body">
                       <h5 className="card-title">{person.name}</h5>
                       <p className="card-text">
-                        Height: {person.properties.height}
+                      Height: {person.properties.height}
                       </p>
-                      <p className="card-text">Mass: {person.properties.mass}</p>
+                      <p className="card-text">
+                        Weight: {person.properties.mass}
+                      </p>
                       <p className="card-text">
                         Hair Color: {person.properties.hair_color}
                       </p>
@@ -74,15 +79,27 @@ function People() {
                         Eye Color: {person.properties.eye_color}
                       </p>
                       <p className="card-text">
-                        Birth Year: {person.properties.birth_year}
+                        Birth: {person.properties.birth_year}
                       </p>
                       <p className="card-text">
                         Gender: {person.properties.gender}
                       </p>
                       <p className="card-text">
-                        Created: {person.properties.created}
+                      Created: {person.properties.created}
                       </p>
-                     
+                      <button type="button" className="btn btn-primary">
+                        Learn More!
+                      </button>
+                      <button
+                        onClick={() =>
+                          addToFavorites({
+                            uid: person.uid,
+                            name: person.name,
+                          })
+                        }
+                      >
+                        <FaHeart />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -91,12 +108,6 @@ function People() {
           ))}
         </div>
       </div>
-
-      <ul>
-        {favorites.map((person) => (
-          <li key={person.uid}>{person.name}</li>
-        ))}
-      </ul>
     </div>
   );
 }

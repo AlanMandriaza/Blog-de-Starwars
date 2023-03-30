@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FaHeart } from "react-icons/fa";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { GlobalFavContext } from "../../context/favcontext";
 
 
 
 const Vehicles = () => {
 
-  
+
   const { fav, addToFavorites } = useContext(GlobalFavContext);
 
   // Luego, en tu JSX, puedes mostrar la cantidad de elementos favoritos así:
@@ -42,12 +43,14 @@ const Vehicles = () => {
 
   return (
     <div>
-      <h1>Vehicles</h1>
+
 
       <div className="container py-5">
+        <h1>Vehicles</h1>
         <div className="d-flex flex-nowrap overflow-auto">
+
           {vehicles.map((vehicle) => (
-            <div className="col-12" key={vehicle.uid}>
+            <div className="col-9" key={vehicle.uid}>
               <div className="card mb-5" style={{ width: "800px" }}>
                 <div className="row g-0">
                   <div className="col-md-6">
@@ -55,7 +58,9 @@ const Vehicles = () => {
                       src="https://static.wikia.nocookie.net/starwars/images/e/e1/Lukes_T-16_Skyhopper_TT.png"
                       className="img-fluid rounded-start"
                       alt="..."
+                      style={{ height: "383px" }}
                     />
+
                   </div>
                   <div className="col-md-6">
                     <div className="card-body">
@@ -95,10 +100,7 @@ const Vehicles = () => {
                             Vehicle Class: {vehicle.properties.vehicle_class}
                           </p>
                           <button type="button" className="btn btn-primary">Learn More</button>
-                          <button onClick={() => addToFavorites({ uid: vehicle.uid, name: vehicle.name })}>Add to favorites</button>
-
-                          
-
+                          <button onClick={() => addToFavorites({ uid: vehicle.uid, name: vehicle.name })}><FontAwesomeIcon icon={faHeart} /></button>
                         </>
                       )}
                     </div>

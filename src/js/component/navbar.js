@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { GlobalFavContext } from "../../context/favcontext";
-
+import "../../styles/index.css";
 
 
 export const Navbar = () => {
@@ -10,6 +10,14 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
+       <Link to="/">
+        <span className="navbar-brand">
+          <img
+            className="margen1"
+            src="https://1000marcas.net/wp-content/uploads/2019/12/Star-Wars-Logo-5-500x281.png"
+          />
+        </span>
+      </Link>
       <div className="container-fluid">
         <button
           className="navbar-toggler"
@@ -56,10 +64,10 @@ export const Navbar = () => {
                       <li key={i}>
                         <a className="dropdown-item" href="#">
                           {prod.name}
-                          <i
+                          <span
                             className="far fa fa-trash mx-2"
-                            onClick={() => removeFav(prod.name)}
-                          ></i>
+                            onClick={() => removeFav(prod)}
+                          ></span>
                         </a>
                       </li>
                     );
